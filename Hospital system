@@ -1,6 +1,27 @@
 import random
+from enum import Enum
+
+
+class PatientGender(Enum):
+    MALE = "Male"
+    FEMALE = "Female"
+    OTHER = "Other"
+
 
 class Patient:
+    '''
+    This class represents a patient who is registered in the hospital
+
+    Attributes:
+    - patient_id: The unique ID assigned to represent a patient
+    - name: the name of the patient
+    - age: the age of the patient
+    - gender: the gender of the patient (Male, Female, or Other)
+    - medical_history: the recorded medical history of a patient (for a new patient, it will be none since they are considered new with no history)
+    - current_condition: the current condition of a patient (for a new patient, it will be none since they are new)
+    - appointment: the scheduled appointment for the patient (for a new patient, it will be none because they have not scheduled an appointment)
+
+    '''
     def __init__(self, patient_id, name, age, gender, medical_history=None, current_condition=None, appointment=None):
         self.patient_id = patient_id
         self.name = name
@@ -23,11 +44,21 @@ class Patient:
         return self._gender
 
     def set_gender(self, value):
-        if value not in ["Male", "Female", "Other"]:
-            raise ValueError("Gender must be 'Male', 'Female', or 'Other'.")
-        self._gender = value
+        if value not in PatientGender:
+            raise ValueError("Invalid gender value. Gender must be 'Male', 'Female', or 'Other'.")
+        self._gender = value.value
 
 class Doctor:
+    '''
+    This class represents a doctor currently employed in the hospital
+
+    Attributes:
+    - doctor_id: The unique ID assigned to a doctor
+    - name: The name of a doctor
+    - specialty: The current specialty of the doctor
+    - availability: An indicator of whether the doctor is available
+
+    '''
     def __init__(self, doctor_id, name, specialty, availability=None):
         self.doctor_id = doctor_id
         self.name = name
